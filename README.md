@@ -19,6 +19,12 @@ Import project. Run next for fixing dependencies:
 sergio@octubre:~/go_projects/simple-message-passing-server$ go mod tidy 
 ```
 
+## How to connect
+
+Client implementation:
+
+- [Java client](https://github.com/scruz84/smp-java-client).
+
 ### Message types
 
 TODO: _document the message types and formats_
