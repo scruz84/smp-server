@@ -46,7 +46,6 @@ func main() {
 
 	//starts the database
 	defer database.Close()
-	database.Init()
 
 	//verify input parameter and execute them
 	if isFlagSet(createUserFlagName) {
@@ -60,10 +59,12 @@ func runServer() {
 	logger.Info("Starting the server on ", connHost, ":", connPort)
 	l, err := net.Listen(connType, connHost+":"+connPort)
 	if err != nil {
-		logger.Error("Error starting server:", err)
+		logger.Error("Error starting server listening:", err)
 		os.Exit(1)
 	}
 	defer l.Close()
+
+	database.Init(true)
 
 	go smpserver.Broadcaster() // starts the message broadcaster
 
@@ -83,6 +84,8 @@ func runServer() {
 }
 
 func createUser(user string) {
+	database.Init(false)
+
 	fmt.Print("Password: ")
 	var maskedPassword []byte
 	var err error
