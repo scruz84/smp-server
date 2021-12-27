@@ -24,6 +24,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	logger "github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
+	"os"
 )
 
 var connection *sql.DB
@@ -33,7 +34,11 @@ func GetConnection() *sql.DB {
 		return connection
 	}
 	var err error
-	connection, err = sql.Open("sqlite3", "./data/smp.db")
+	err = os.MkdirAll("data", os.ModePerm)
+	if err != nil {
+		panic(err)
+	}
+	connection, err = sql.Open("sqlite3", "data/smp.db")
 	if err != nil {
 		panic(err)
 	}
