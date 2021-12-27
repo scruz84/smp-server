@@ -19,6 +19,24 @@ Import project. Run next for fixing dependencies:
 sergio@octubre:~/go_projects/smp-server$ go mod tidy 
 ```
 
+Running from console:
+
+- Build the server
+    ```
+    sergio@octubre:~/go_projects/smp-server$ go build .
+    ```
+- Create a user (if not exists one)
+    ```
+    sergio@octubre:~/go_projects/smp-server$ ./smp --create-user sergio
+    Password: ******
+    ```
+- Run the server
+    ```
+    sergio@octubre:~/proyectos/go_projects/smp-server$ ./smp
+    WARN[0000] table users already exists                   
+    INFO[0000] Starting the server on 0.0.0.0:1984
+    ```
+
 ## How to connect
 
 Client implementation:
