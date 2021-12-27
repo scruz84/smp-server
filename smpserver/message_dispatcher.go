@@ -38,6 +38,8 @@ func (h MessageDispatcher) Read(message []byte, channel Channel) {
 			doLogin(message[MESSAGE_TYPE_BYTES:], channel)
 		case TOPIC_SUBSCRIPTION_REQUEST:
 			doTopicSubscription(message[MESSAGE_TYPE_BYTES:], channel)
+		case TOPIC_UN_SUBSCRIPTION_REQUEST:
+			doTopicUnSubscription(message[MESSAGE_TYPE_BYTES:], channel)
 		case SEND_MESSAGE:
 			go doSendMessage(message[MESSAGE_TYPE_BYTES:], channel)
 		}

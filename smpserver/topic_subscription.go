@@ -26,5 +26,15 @@ _ (3): 		reserved
 * (n): 		the topic name and the rest of the message
 */
 func doTopicSubscription(message []byte, channel Channel) {
-	SubscribeToTopic(string(message), channel)
+	SubscribeToTopic(string(message), channel, true)
+}
+
+/**
+Structure: 	X _ _ _ ********
+X: 			topic name size
+_ (3): 		reserved
+* (n): 		the topic name and the rest of the message
+*/
+func doTopicUnSubscription(message []byte, channel Channel) {
+	SubscribeToTopic(string(message), channel, false)
 }

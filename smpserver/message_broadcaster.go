@@ -74,7 +74,7 @@ func RemoveClient(channel Channel) {
 	}
 }
 
-func SubscribeToTopic(topic string, channel Channel) {
+func SubscribeToTopic(topic string, channel Channel, subscribe bool) {
 	topicSubscriversLock.Lock()
 	defer topicSubscriversLock.Unlock()
 	var subscribers = topicSubscribers[topic]
@@ -82,7 +82,11 @@ func SubscribeToTopic(topic string, channel Channel) {
 		subscribers = make(map[string]bool)
 		topicSubscribers[topic] = subscribers
 	}
-	subscribers[channel.ChannelId()] = true
+	if subscribe {
+		subscribers[channel.ChannelId()] = true
+	} else {
+		delete(subscribers, channel.ChannelId())
+	}
 }
 
 func AddTopicMessage(topicMessage TopicMessage) {
