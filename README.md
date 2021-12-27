@@ -25,7 +25,8 @@ Running from console:
     ```
     sergio@octubre:~/go_projects/smp-server$ go build .
     ```
-- Create a user (if not exists one)
+- Create a user. This is an optional step. If server starts and no user exists on the system, then an arbitrary one is 
+  created and printed to console.
     ```
     sergio@octubre:~/go_projects/smp-server$ ./smp --create-user sergio
     Password: ******

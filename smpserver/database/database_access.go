@@ -21,6 +21,7 @@ package database
 
 import (
 	"database/sql"
+	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
 	logger "github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
@@ -55,12 +56,32 @@ func Close() {
 	}
 }
 
-func Init() {
+func Init(initialUser bool) {
 	conn := GetConnection()
 	var err error
 	_, err = conn.Exec("CREATE TABLE users (name varchar(100) primary key, pwd varchar(500))")
 	if err != nil {
 		logger.Warn(err.Error())
+	}
+
+	// Create a default user if table is empty
+	if initialUser {
+		var nUsers int
+		err := conn.QueryRow("SELECT count(*) FROM users").Scan(&nUsers)
+		if err != nil {
+			logger.Error("error creating the default user", err)
+		} else {
+			if nUsers == 0 {
+				newUser := "smp-admin"
+				newPassword := uuid.New().String()[0:10]
+				err = StoreUser(newUser, newPassword)
+				if err != nil {
+					logger.Error("Error creating the initial user", err)
+					return
+				}
+				logger.Print("Initial user/password. Save them! ", newUser, "/", newPassword)
+			}
+		}
 	}
 }
 
