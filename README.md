@@ -16,7 +16,7 @@ The server has the option subscribe to a _topic_ and send messages to those topi
 Import project. Run next for fixing dependencies:
 
 ```    
-sergio@octubre:~/go_projects/simple-message-passing-server$ go mod tidy 
+sergio@octubre:~/go_projects/smp-server$ go mod tidy 
 ```
 
 ## How to connect
