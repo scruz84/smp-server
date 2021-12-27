@@ -11,6 +11,20 @@ want to learn [Golang](https://go.dev/), so they can find some code as example.
 
 The server has the option subscribe to a _topic_ and send messages to those topics.
 
+## How to build
+
+Import project. Run next for fixing dependencies:
+
+```    
+sergio@octubre:~/go_projects/smp-server$ go mod tidy 
+```
+
+## How to connect
+
+Client implementation:
+
+- [Java client](https://github.com/scruz84/smp-java-client).
+
 ### Message types
 
 TODO: _document the message types and formats_
