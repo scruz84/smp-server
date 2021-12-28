@@ -18,8 +18,9 @@ Import project. Run next for fixing dependencies:
 ```    
 sergio@octubre:~/go_projects/smp-server$ go mod tidy 
 ```
+## How to run
 
-Running from console:
+### Running from console:
 
 - Build the server
     ```
@@ -37,19 +38,27 @@ Running from console:
     WARN[0000] table users already exists                   
     INFO[0000] Starting the server on 0.0.0.0:1984
     ```
+  
+### Running with docker
+
+Repository located at [smp-server](https://hub.docker.com/repository/docker/scruz84/smp-server). Execute the container as follows. If there is not an initial users database, the server will create a default user and print the password.
+```
+sergio@octubre:~/go_projects/smp-server$ docker run --rm -p 1984:1984 scruz84/smp-server:latest
+time="2021-12-28T10:12:49Z" level=info msg="Starting the server on 0.0.0.0:1984"
+time="2021-12-28T10:12:49Z" level=info msg="Initial user/password. Save them! smp-admin/4c9d269b-e"
+```
+
+For initializing the with a different user, execute like this:
+``` 
+sergio@octubre:/smp-server$ docker run --rm -it -v /smp-server/data:/smp-server/data scruz84/smp-server:latest --create-user sergio
+Password: ******
+sergio@octubre:/smp-server$ docker run --rm -p 1984:1984 -v /smp-server/data:/smp-server/data scruz84/smp-server:latest 
+time="2021-12-28T10:21:24Z" level=info msg="Starting the server on 0.0.0.0:1984"
+time="2021-12-28T10:21:24Z" level=warning msg="table users already exists"
+```
 
 ## How to connect
 
 Client implementation:
 
 - [Java client](https://github.com/scruz84/smp-java-client).
-
-### Message types
-
-TODO: _document the message types and formats_
-
-Represented with one byte value:
-- a: loging request
-- b: loging response
-- c: topic subscription
-- d: send a message to a topic
