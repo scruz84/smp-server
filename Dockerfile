@@ -27,4 +27,4 @@ COPY --from=builder /smp-server/build/smp ./
 # default port
 EXPOSE 1984
 
-CMD [ "./smp" ]
+ENTRYPOINT [ "./smp" ]
