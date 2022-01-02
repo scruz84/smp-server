@@ -2,8 +2,6 @@
 
 FROM golang:1.17.5 as builder
 
-#RUN apk --no-cache add ca-certificates
-
 WORKDIR /smp-server/build
 
 COPY go.mod .
@@ -23,6 +21,8 @@ FROM debian:11-slim
 
 WORKDIR /smp-server/
 COPY --from=builder /smp-server/build/smp ./
+RUN mkdir config
+COPY --from=builder /smp-server/build/config/config.yaml  ./config/
 
 # default port
 EXPOSE 1984
