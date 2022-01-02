@@ -43,7 +43,7 @@ INFO[0000] Starting the server on 0.0.0.0:1984
   
 ### Running with docker
 
-Repository located at [smp-server](https://hub.docker.com/repository/docker/scruz84/smp-server). Execute the container as follows. If there is not an initial users database, the server will create a default user and print the password.
+Repository located at [smp-server](https://hub.docker.com/r/scruz84/smp-server). Execute the container as follows. If there is not an initial users database, the server will create a default user and print the password.
 ``` shell
 sergio@octubre:~/go_projects/smp-server$ docker run --rm -p 1984:1984 scruz84/smp-server:latest
 time="2021-12-28T10:12:49Z" level=info msg="Starting the server on 0.0.0.0:1984"
@@ -57,6 +57,27 @@ Password: ******
 sergio@octubre:/smp-server$ docker run --rm -p 1984:1984 -v /smp-server/data:/smp-server/data scruz84/smp-server:latest 
 time="2021-12-28T10:21:24Z" level=info msg="Starting the server on 0.0.0.0:1984"
 time="2021-12-28T10:21:24Z" level=warning msg="table users already exists"
+```
+
+## How to TLS
+Generate a certificate and a private key.
+
+``` shell
+sergio@octubre:~/smp-server$ mkdir config/tls -p
+sergio@octubre:~/smp-server$ openssl req -new -nodes -x509 -out config/tls/server.pem -keyout config/tls/server.key -days 3650 -subj "/C=ES/ST=BIERZO/L=Ponferrada/O=SMP-ORG/OU=SMP/CN=smp-server"
+```
+
+Edit configuration file and enable TLS listener.
+
+``` yaml
+server:
+  host: 0.0.0.0
+  port: 1984
+  tls:
+    enabled: true
+    tls_port: 1985
+    server_key: config/tls/server.key
+    server_cert: config/tls/server.pem
 ```
 
 ## How to connect
