@@ -5,7 +5,7 @@ FROM golang:1.17.5 as builder
 WORKDIR /smp-server/build
 
 COPY go.mod .
-COPY go.sum .
+# COPY go.sum .
 
 # download dependencies
 RUN go mod download
