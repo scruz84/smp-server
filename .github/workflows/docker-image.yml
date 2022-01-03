@@ -24,5 +24,11 @@ jobs:
     - name: Build the Docker image        
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m)
       
+    - name: Tag as latest
+      run: docker tag ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m) ${{ secrets.DOCKER_USER }}/smp-server:latest
+
     - name: Push the image
       run: docker push ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m)
+
+    - name: Push the image (latest)
+      run: docker push ${{ secrets.DOCKER_USER }}/smp-server:latest
