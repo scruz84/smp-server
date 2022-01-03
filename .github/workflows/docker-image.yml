@@ -22,7 +22,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     
     - name: Build the Docker image        
-      run: docker build . --file Dockerfile --tag $DOCKER_USER/smp-server:$(date +Y).$(date +m)
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/smp-server:$(date +Y).$(date +m)
       
     - name: Push the image
       run: docker push ${{ secrets.DOCKER_USER }}/smp-server
