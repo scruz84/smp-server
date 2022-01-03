@@ -25,4 +25,4 @@ jobs:
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m)
       
     - name: Push the image
-      run: docker push ${{ secrets.DOCKER_USER }}/smp-server
+      run: docker push ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m)
