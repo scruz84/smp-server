@@ -9,6 +9,7 @@ COPY go.mod .
 
 # download dependencies
 RUN go mod download
+RUN go mod tidy
 
 # copy sources
 COPY . .
