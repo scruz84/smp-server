@@ -20,15 +20,9 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: | 
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-
-    - name: install buildx
-      id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v1
-      with:
-        version: latest
-
+    
     - name: Build the Docker image        
-      run: docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 --tag ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m) . --file Dockerfile
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m)
       
     - name: Tag as latest
       run: docker tag ${{ secrets.DOCKER_USER }}/smp-server:$(date +%Y).$(date +%m) ${{ secrets.DOCKER_USER }}/smp-server:latest
